@@ -35,6 +35,16 @@ export class Spaceship {
     this.tiltDirection = -1;
   }
 
+  moveUp() {
+    console.log("moving up");
+    this.ship.position.y += 0.5;
+  }
+
+  moveDown() {
+    console.log("moving down");
+    this.ship.position.y -= 0.5;
+  }
+
   stopTilt() {
     this.tiltDirection = 0;
   }

@@ -1,7 +1,6 @@
 import * as THREE from "three";
 import { Spaceship } from "./spaceship.js";
-import { EnemyShip } from "./enemyship.js";
-import { createBackground, moveStars } from "./background.js";
+import { createBackground, moveStarsAsteroids } from "./background.js";
 
 let scene, camera, renderer, spaceship, enemyShips = [];
 
@@ -20,18 +19,6 @@ function init() {
   // background
   createBackground(scene);
 
-  // Add enemy ships
-  const spawnPoints = [
-    new THREE.Vector3(-5, 0, -20),
-    new THREE.Vector3(5, 0, -20),
-    // Add more spawn points as needed
-  ];
-
-  for (const spawnPoint of spawnPoints) {
-    const enemyShip = new EnemyShip(scene, spawnPoint, spaceship.ship);
-    enemyShips.push(enemyShip);
-  }
-
   // player spaceship
   spaceship = new Spaceship(scene);
 
@@ -42,8 +29,9 @@ function init() {
 
 function animate() {
   requestAnimationFrame(animate);
-  moveStars();
+  moveStarsAsteroids();
   spaceship.update();
+
   renderer.render(scene, camera);
 }
 
@@ -58,6 +46,10 @@ document.addEventListener("keydown", (event) => {
     spaceship.moveLeft();
   } else if (keys["ArrowRight"]) {
     spaceship.moveRight();
+  } else if (keys["ArrowUp"]) {
+    spaceship.moveUp();
+  } else if (keys["ArrowDown"]) {
+    spaceship.moveDown();
   }
 
   if (keys[" "]) {
